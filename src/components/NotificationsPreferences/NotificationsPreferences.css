@@ -1,0 +1,285 @@
+/* NotificationsPreferences.css - Adaptado al sistema de diseño "iOS 26" */
+
+/* --- VARIABLES DE DISEÑO "iOS 26" --- */
+:root {
+  /* Paleta de colores - Modo Claro */
+  --form-bg-light: rgba(255, 255, 255, 0.5);
+  --text-primary-light: #1c1c1e;
+  --text-secondary-light: #6e6e73;
+  --input-bg-light: rgba(240, 240, 245, 0.5);
+  --accent-blue-light: #007aff;
+  --border-light: rgba(60, 60, 67, 0.29);
+  --green-light: #34c759;
+
+  /* Paleta de colores - Modo Oscuro */
+  --form-bg-dark: rgba(28, 28, 30, 0.75);
+  --text-primary-dark: #ffffff;
+  --text-secondary-dark: #8e8e93;
+  --input-bg-dark: rgba(58, 58, 60, 0.75);
+  --accent-blue-dark: #0a84ff;
+  --border-dark: rgba(84, 84, 88, 0.65);
+  --green-dark: #30d158;
+
+  /* Tipografía */
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* --- ESTILOS DEL COMPONENTE --- */
+
+/* Contenedor principal */
+.notifications-preferences {
+  background: var(--form-bg-light);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-light);
+  padding: 24px;
+  height: fit-content;
+  font-family: var(--font-family);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.notifications-preferences__header {
+  margin-bottom: 24px;
+}
+
+.notifications-preferences__title {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
+  color: var(--text-primary-light);
+  margin: 0 0 8px 0;
+}
+
+.notifications-preferences__description {
+  font-size: 0.9375rem; /* 15px */
+  color: var(--text-secondary-light);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.notifications-preferences__options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* Opciones de notificación */
+.notification-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: var(--input-bg-light);
+  transition: all 0.2s ease;
+}
+
+.notification-option:hover {
+  background: var(--input-bg-light);
+  border-color: var(--border-light);
+  transform: translateY(-1px);
+}
+
+.notification-option__content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.notification-option__icon-container {
+  flex-shrink: 0;
+}
+
+.notification-option__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Se mantienen los colores de los iconos para la identidad visual */
+.notification-option__icon--blue { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+.notification-option__icon--green { background: linear-gradient(135deg, #dcfce7, #bbf7d0); }
+.notification-option__icon--purple { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); }
+.notification-option__icon--orange { background: linear-gradient(135deg, #fed7aa, #fdba74); }
+.notification-option__icon--red { background: linear-gradient(135deg, #fecaca, #fca5a5); }
+.notification-option__icon--indigo { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); }
+
+.notification-option__icon-svg { width: 18px; height: 18px; }
+.notification-option__icon--blue .notification-option__icon-svg { color: #3b82f6; }
+.notification-option__icon--green .notification-option__icon-svg { color: #10b981; }
+.notification-option__icon--purple .notification-option__icon-svg { color: #8b5cf6; }
+.notification-option__icon--orange .notification-option__icon-svg { color: #f97316; }
+.notification-option__icon--red .notification-option__icon-svg { color: #ef4444; }
+.notification-option__icon--indigo .notification-option__icon-svg { color: #6366f1; }
+
+
+.notification-option__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-option__label {
+  font-size: 1rem; /* 16px */
+  font-weight: 500;
+  color: var(--text-primary-light);
+  cursor: pointer;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.notification-option__description {
+  font-size: 0.8125rem; /* 13px */
+  color: var(--text-secondary-light);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notification-option__toggle {
+  flex-shrink: 0;
+}
+
+/* Interruptor (Toggle) estilo iOS */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 51px;
+  height: 31px;
+}
+
+.toggle__input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle__slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e9e9ea;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle__slider:before {
+  position: absolute;
+  content: "";
+  height: 27px;
+  width: 27px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.toggle__input:checked + .toggle__slider {
+  background-color: var(--green-light);
+}
+
+.toggle__input:checked + .toggle__slider:before {
+  transform: translateX(20px);
+}
+
+.toggle__input:focus-visible + .toggle__slider {
+  outline: 2px solid var(--accent-blue-light);
+  outline-offset: 2px;
+}
+
+/* Botón de Guardar */
+.notifications-preferences__save-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background-color: var(--accent-blue-light);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  min-height: 50px;
+}
+
+.notifications-preferences__save-btn:hover {
+  filter: brightness(1.1);
+}
+
+.notifications-preferences__save-btn:active {
+  transform: scale(0.98);
+}
+
+/* --- MODO OSCURO --- */
+@media (prefers-color-scheme: dark) {
+  .notifications-preferences {
+    background: var(--form-bg-dark);
+    border: 1px solid var(--border-dark);
+  }
+  .notifications-preferences__title,
+  .notification-option__label {
+    color: var(--text-primary-dark);
+  }
+  .notifications-preferences__description,
+  .notification-option__description {
+    color: var(--text-secondary-dark);
+  }
+  .notification-option {
+    background: var(--input-bg-dark);
+  }
+  .notification-option:hover {
+    border-color: var(--border-dark);
+  }
+  .toggle__slider {
+    background-color: #39393d;
+  }
+  .toggle__input:checked + .toggle__slider {
+    background-color: var(--green-dark);
+  }
+  .toggle__input:focus-visible + .toggle__slider {
+    outline-color: var(--accent-blue-dark);
+  }
+  .notifications-preferences__save-btn {
+    background-color: var(--accent-blue-dark);
+  }
+}
+
+/* --- DISEÑO RESPONSIVO --- */
+@media (max-width: 640px) {
+  .notifications-preferences {
+    padding: 20px;
+    border-radius: 16px;
+  }
+  .notification-option {
+    padding: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .notification-option__content {
+    width: 100%;
+  }
+  .notification-option__toggle {
+    align-self: flex-end;
+  }
+  .notification-option__icon {
+    width: 32px;
+    height: 32px;
+  }
+  .notification-option__icon-svg {
+    width: 16px;
+    height: 16px;
+  }
+}
