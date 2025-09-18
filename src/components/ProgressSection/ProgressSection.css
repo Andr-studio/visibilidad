@@ -458,6 +458,111 @@
 }
 
 
+/* --- KANBAN VIEW STYLES --- */
+
+.kanban-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.kanban-column {
+  background: var(--input-bg-light);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px; /* Altura máxima para la columna */
+  overflow-y: auto; /* Scroll si el contenido excede la altura */
+}
+
+.kanban-column__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary-light);
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-light);
+  position: sticky;
+  top: -16px; /* Ajuste para que el título se pegue bien */
+  background: var(--input-bg-light);
+  z-index: 1;
+}
+
+.kanban-column__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.kanban-card {
+  background: var(--form-bg-light);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.kanban-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.kanban-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary-light);
+  margin: 0 0 8px 0;
+}
+
+.kanban-card__assignee {
+  font-size: 0.8rem;
+  color: var(--text-secondary-light);
+  margin-bottom: 12px;
+}
+
+.kanban-card__progress-bar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.kanban-card__progress-fill {
+  height: 100%;
+  background: var(--accent-blue-light);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+/* --- DARK MODE KANBAN --- */
+@media (prefers-color-scheme: dark) {
+  .kanban-column {
+    background: var(--input-bg-dark);
+  }
+  .kanban-column__title {
+    color: var(--text-primary-dark);
+    border-bottom-color: var(--border-dark);
+    background: var(--input-bg-dark);
+  }
+  .kanban-card {
+    background: var(--form-bg-dark);
+    border-color: var(--border-dark);
+  }
+  .kanban-card__title {
+    color: var(--text-primary-dark);
+  }
+  .kanban-card__assignee {
+    color: var(--text-secondary-dark);
+  }
+  .kanban-card__progress-fill {
+    background: var(--accent-blue-dark);
+  }
+}
+
+
 /* Responsive Design */
 @media (min-width: 640px) {
   .progress-section__header {
