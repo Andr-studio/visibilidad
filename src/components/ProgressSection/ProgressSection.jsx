@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import { ChevronDown, FileText, BarChart3, Zap } from 'lucide-react';
 import './ProgressSection.css';
+import ProgressBarView from '../ProgressBarView/ProgressBarView';
+import TableView from '../TableView/TableView';
+import CalendarView from '../CalendarView/CalendarView';
+import CardsView from '../CardsView/CardsView';
+import Comments from '../Comments/Comments';
 
-const ProgressSection = ({ progress, milestones }) => {
+const ProgressSection = ({ progress, milestones, comments, onAddComment }) => {
   const [selectedView, setSelectedView] = useState('detailed');
   const [selectedFormat, setSelectedFormat] = useState('percentage');
   const [expandedMilestone, setExpandedMilestone] = useState(null);
+  const [expandedComments, setExpandedComments] = useState(null);
+
+  const toggleComments = (milestoneId) => {
+    setExpandedComments(expandedComments === milestoneId ? null : milestoneId);
+  };
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -40,6 +50,10 @@ const ProgressSection = ({ progress, milestones }) => {
               onChange={(e) => setSelectedView(e.target.value)}
             >
               <option value="detailed">Lista Detallada</option>
+              <option value="progressBar">Barra de Progreso</option>
+              <option value="table">Tabla</option>
+              <option value="calendar">Calendario</option>
+              <option value="cards">Tarjetas</option>
               <option value="kanban">Kanban</option>
             </select>
           </div>
@@ -113,6 +127,9 @@ const ProgressSection = ({ progress, milestones }) => {
                       <p className="milestone__assignee-name">{milestone.assignee}</p>
                       <p className="milestone__due-date">{milestone.dueDate}</p>
                     </div>
+                    <button onClick={(e) => { e.stopPropagation(); toggleComments(milestone.id); }} className="comment-toggle-btn">
+                      Comentarios ({comments[milestone.id]?.length || 0})
+                    </button>
                     <ChevronDown
                       className={`milestone__chevron ${
                         expandedMilestone === milestone.id ? 'milestone__chevron--rotated' : ''
@@ -147,10 +164,22 @@ const ProgressSection = ({ progress, milestones }) => {
                     </div>
                   </div>
                 )}
+                {expandedComments === milestone.id && (
+                  <Comments
+                    milestoneId={milestone.id}
+                    comments={comments[milestone.id] || []}
+                    onAddComment={onAddComment}
+                  />
+                )}
               </div>
             ))}
           </div>
         )}
+
+        {selectedView === 'progressBar' && <ProgressBarView milestones={milestones} comments={comments} onAddComment={onAddComment} />}
+        {selectedView === 'table' && <TableView milestones={milestones} comments={comments} onAddComment={onAddComment} />}
+        {selectedView === 'calendar' && <CalendarView milestones={milestones} comments={comments} onAddComment={onAddComment} />}
+        {selectedView === 'cards' && <CardsView milestones={milestones} comments={comments} onAddComment={onAddComment} />}
 
         {selectedView === 'kanban' && (
           <div className="kanban-view">

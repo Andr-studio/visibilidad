@@ -33,6 +33,21 @@ export default function Dashboard({ user, onLogout }) {
     { id: 5, title: "Integración Pasarela de Pagos", progress: 0, status: "pending", dueDate: "2025-07-05", assignee: "Fredy Carrizo" }
   ];
 
+  const [comments, setComments] = React.useState({
+    1: [],
+    2: [{ id: 1, user: "Andrés Rivera", avatar: "AR", text: "El cliente ha aprobado los prototipos. ¡Gran trabajo!", timestamp: "2025-03-16T10:00:00Z", replies: [] }],
+    3: [],
+    4: [],
+    5: [{ id: 1, user: "Andrés Rivera", avatar: "AR", text: "¿Tenemos ya la documentación de la API del proveedor de pagos?", timestamp: "2025-06-11T14:30:00Z", replies: [] }],
+  });
+
+  const handleAddComment = (milestoneId, comment) => {
+    setComments(prevComments => ({
+      ...prevComments,
+      [milestoneId]: [...(prevComments[milestoneId] || []), comment]
+    }));
+  };
+
   const recentActivity = [
     { user: "Fredy Carrizo", action: "Actualizó la tarea", detail: "Desarrollo Backend", time: "Hace 2 horas", avatar: "FC" },
     { user: "Andrés Rivera", action: "Añadió un comentario en", detail: "Integración Pasarela de Pagos", time: "Hace 4 horas", avatar: "AR" },
@@ -76,7 +91,12 @@ export default function Dashboard({ user, onLogout }) {
       <div className="dashboard__content">
         <div className="dashboard__main">
           <ProjectHeader projectData={projectData} />
-          <ProgressSection progress={progress} milestones={milestones} />
+          <ProgressSection
+            progress={progress}
+            milestones={milestones}
+            comments={comments}
+            onAddComment={handleAddComment}
+          />
         </div>
 
         <div className="dashboard__sidebar">
